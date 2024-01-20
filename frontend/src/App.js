@@ -23,7 +23,12 @@ function App() {
   if (apiKey) {
     return <Map apiKey={apiKey} />;
   } else {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        {" "}
+        <h1 className="text-3xl font-bold underline text-blue-800">Loading</h1>
+      </div>
+    );
   }
 }
 
