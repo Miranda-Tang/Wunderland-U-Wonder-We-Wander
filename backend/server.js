@@ -1,10 +1,20 @@
 import express from "express";
-const port = 5000;
+import cors from "cors";
+import dotenv from "dotenv";
+dotenv.config();
+
+const port = process.env.PORT || 5000;
 
 const app = express();
+app.use(cors());
+const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
 
 app.get("/", (req, res) => {
   res.send("API is running...");
+});
+
+app.get("/api/google-maps-api-key", (req, res) => {
+  res.json({ apiKey: googleMapsApiKey });
 });
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
