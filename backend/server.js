@@ -11,7 +11,7 @@ const app = express();
 app.use(cors());
 const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
 
-app.use('/api', weatherRoutes);
+// app.use('/api', weatherRoutes);
 
 app.get("/", (req, res) => {
   res.send("API is running...");

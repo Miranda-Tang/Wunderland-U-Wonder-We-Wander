@@ -8,7 +8,9 @@ function App() {
   useEffect(() => {
     const fetchApiKey = async () => {
       try {
-        const response = await axios.get("/api/google-maps-api-key");
+        const response = await axios.get(
+          "http://localhost:5000/api/google-maps-api-key"
+        );
         console.log(response.data.apiKey);
         setApiKey(response.data.apiKey);
       } catch (error) {
@@ -26,7 +28,7 @@ function App() {
     return (
       <div>
         {" "}
-        <h1 className="text-3xl font-bold underline text-blue-800">Loading</h1>
+        <h1 className="text-blue-800">Loading</h1>
       </div>
     );
   }
