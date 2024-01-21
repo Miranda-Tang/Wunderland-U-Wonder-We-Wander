@@ -14,8 +14,15 @@
     U Wonder We Wander
     <br />
     <br />
+
+  <video width="400" height="300" controls>
+    <source src="your-video-file.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
   </p>
 </div>
+
+
 
 
 <!-- TABLE OF CONTENTS -->
