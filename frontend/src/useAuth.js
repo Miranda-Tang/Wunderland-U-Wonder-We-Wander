@@ -27,7 +27,7 @@ const useAuth = (code) => {
         setAccessToken(res.data.accessToken);
         setRefreshToken(res.data.refreshToken);
         setExpiresIn(res.data.expiresIn);
-        window.history.pushState({}, null, "/"); // move all stuff after localhost:3000/
+        // window.history.pushState({}, null, "/"); // move all stuff after localhost:3000/
       })
       .catch((err) => {
         console.error("Error during login:", err);
