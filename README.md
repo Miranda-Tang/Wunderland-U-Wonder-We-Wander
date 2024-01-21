@@ -4,7 +4,7 @@
 <!-- LOGO -->
 <br />
 <div align="center">
-  <a href="src="wlogo.png" alt="Logo" width="350" height="350"">
+  <img src="wlogo.png" alt="Logo" width="350" height="350">
     <img src="" alt="Logo" width="350" height="350">
   </a>
 
