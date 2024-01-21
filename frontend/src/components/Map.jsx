@@ -21,7 +21,7 @@ const Map = ({apiKey}) => {
     const [duration, setDuration] = useState("");
 
     const originRef = useRef();
-    const destiantionRef = useRef();
+    const destinationRef = useRef();
 
     if (!isLoaded) {
         return <SkeletonText/>;
@@ -35,7 +35,7 @@ const Map = ({apiKey}) => {
             address: originRef.current.value,
         });
         const destinationResults = await getGeocode({
-            address: destiantionRef.current.value,
+            address: destinationRef.current.value,
         });
 
         const originLatLng = getLatLng(originResults[0]);
@@ -43,13 +43,13 @@ const Map = ({apiKey}) => {
         const destinationLatLng = await getLatLng(destinationResults[0]);
 
         // POST request to server with destinationLatLng
-        axios.post('/api/weather/coords', destinationLatLng)
+        axios.post('http://localhost:5010/api/coords', destinationLatLng)
             .catch((error) => console.error(`Error: ${error}`));
 
         const directionsService = new google.maps.DirectionsService();
         const results = await directionsService.route({
             origin: originRef.current.value,
-            destination: destiantionRef.current.value,
+            destination: destinationRef.current.value,
             travelMode: google.maps.TravelMode.DRIVING,
         });
         setDirectionsResponse(results);
@@ -62,7 +62,7 @@ const Map = ({apiKey}) => {
         setDistance("");
         setDuration("");
         originRef.current.value = "";
-        destiantionRef.current.value = "";
+        destinationRef.current.value = "";
     }
 
     return (
@@ -139,7 +139,7 @@ const Map = ({apiKey}) => {
                             <input
                                 type="text"
                                 placeholder="Destination"
-                                ref={destiantionRef}
+                                ref={destinationRef}
                                 style={{width: "100%"}}
                             />
                         </Autocomplete>
