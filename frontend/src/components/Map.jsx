@@ -1,5 +1,4 @@
 import React, {useRef, useState} from "react";
-import axios from "axios";
 import {SkeletonText} from "@chakra-ui/react";
 import {FaLocationArrow, FaTimes} from "react-icons/fa";
 
@@ -37,10 +36,7 @@ const Map = ({apiKey}) => {
         const originLatLng = await getLatLng(originResults[0]);
         const destinationLatLng = await getLatLng(destinationResults[0]);
 
-        // POST request to server with destinationLatLng
-        axios
-            .post("http://localhost:5010/api/coords", destinationLatLng)
-            .catch((error) => console.error(`Error: ${error}`));
+        window.location.href = `http://localhost:5010/api/coords?lat=${destinationLatLng.lat}&lng=${destinationLatLng.lng}`;   // redirect to the server endpoint
 
         const directionsService = new google.maps.DirectionsService();
         const results = await directionsService.route({
