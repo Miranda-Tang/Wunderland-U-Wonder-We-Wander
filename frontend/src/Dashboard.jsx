@@ -49,7 +49,7 @@ const Dashboard = () => {
     if (!accessToken) return;
 
     let cancel = false; // used to cancel the previous query when a new query is made
-    spotifyApi.searchTracks(`mood:${mood}`).then((res) => {
+    spotifyApi.searchTracks(`${mood}`).then((res) => {
       if (cancel) return;
       setSearchResults(
         res.body.tracks.items.map((track) => {
