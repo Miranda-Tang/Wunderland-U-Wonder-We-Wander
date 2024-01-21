@@ -31,7 +31,7 @@ const useAuth = (code) => {
       })
       .catch((err) => {
         console.error("Error during login:", err);
-        window.location = "/";
+        // window.location = "/";
       });
   }, [code]);
 
@@ -49,7 +49,7 @@ const useAuth = (code) => {
           setExpiresIn(res.data.expiresIn);
         })
         .catch(() => {
-          window.location = "/";
+          //  window.location = "/";
         });
     }, (expiresIn - 60) * 1000);
 

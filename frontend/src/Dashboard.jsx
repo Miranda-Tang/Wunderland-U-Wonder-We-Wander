@@ -11,11 +11,13 @@ const spotifyApi = new spotifyWebApi({
   clientId: "6cc0e292d788486f86dde792708ea249",
 });
 
-const Dashboard = ({ code }) => {
+const Dashboard = () => {
+  const code = new URLSearchParams(window.location.search).get("code");
   const { accessToken, logout } = useAuth(code);
   const [playingTrack, setPlayingTrack] = useState();
   const [lyrics, setLyrics] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const mood = new URLSearchParams(window.location.search).get("mood");
 
   function chooseTrack(track) {
     setPlayingTrack(track);
@@ -47,7 +49,7 @@ const Dashboard = ({ code }) => {
     if (!accessToken) return;
 
     let cancel = false; // used to cancel the previous query when a new query is made
-    spotifyApi.searchTracks("mood:happy").then((res) => {
+    spotifyApi.searchTracks(`mood:${mood}`).then((res) => {
       if (cancel) return;
       setSearchResults(
         res.body.tracks.items.map((track) => {

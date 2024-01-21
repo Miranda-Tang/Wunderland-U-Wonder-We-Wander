@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import App from "./App"; // Your Home Page
-import Search from "./Search"; // Your Search Component
+import Dashboard from "./Dashboard"; // Your Search Component
 import "./index.css";
 import { ChakraProvider, theme } from "@chakra-ui/react";
 import reportWebVitals from "./reportWebVitals";
@@ -13,7 +13,7 @@ root.render(
     <Router>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="Search" element={<Search />} />
+        <Route path="Dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   </ChakraProvider>

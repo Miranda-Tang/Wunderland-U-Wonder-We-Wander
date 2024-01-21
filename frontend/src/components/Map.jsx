@@ -90,7 +90,7 @@ const Map = ({ apiKey, code }) => {
     //  const originLatLng = getLatLng(originResults[0]);
     const destinationLatLng = getLatLng(destinationResults[0]);
 
-    window.location.href = `http://localhost:5010/api/coords?lat=${destinationLatLng.lat}&lng=${destinationLatLng.lng}`; // redirect to the server endpoint
+    window.location.href = `http://localhost:5010/api/coords?lat=${destinationLatLng.lat}&lng=${destinationLatLng.lng}&code=${code}`; // redirect to the server endpoint
 
     const airlineDistance =
       google.maps.geometry.spherical.computeDistanceBetween(
