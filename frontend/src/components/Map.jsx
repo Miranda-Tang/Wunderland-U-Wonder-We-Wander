@@ -1,74 +1,150 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import { SkeletonText } from "@chakra-ui/react";
 import { FaLocationArrow, FaTimes } from "react-icons/fa";
-
 import {
   Autocomplete,
   DirectionsRenderer,
   GoogleMap,
-  Marker,
+  MarkerF,
   useJsApiLoader,
 } from "@react-google-maps/api";
 import { getGeocode, getLatLng } from "use-places-autocomplete";
+import des_location from "../images/des_location.png";
+import org_location from "../images/org_location.png";
 
 const Map = ({ apiKey }) => {
-  const center = { lat: 49.2827, lng: -123.1207 };
+  const [origin, setOrigin] = useState(null);
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: apiKey,
-    libraries: ["places"],
+    libraries: ["places", "geometry"],
     nonce: "map",
   });
   const google = window.google;
   const [map, setMap] = useState(null);
+  const [previousPolyline, setPreviousPolyline] = useState(null);
+  const [previousMarker, setPreviousMarker] = useState(null);
   const [directionsResponse, setDirectionsResponse] = useState(null);
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
 
-  const originRef = useRef();
   const destinationRef = useRef();
+
+  function addMarker(coordinates, icon) {
+    const marker = new google.maps.Marker({
+      position: coordinates, // Passing the coordinates
+      icon: icon,
+      map: map, //Map that we need to add
+      draggarble: false, // If set to true you can drag the marker
+    });
+    return marker;
+  }
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setOrigin({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    if (map && origin !== null && origin.lat !== null && origin.lng !== null) {
+      map.panTo(origin);
+      addMarker(origin, org_location);
+    }
+  }, [map, origin]);
 
   if (!isLoaded) {
     return <SkeletonText />;
   }
 
-  async function calculateRoute() {
-    if (originRef.current.value === "" || destinationRef.current.value === "") {
+  async function handleTravel() {
+    if (destinationRef.current.value === "") {
+      if (previousPolyline) {
+        previousPolyline.setMap(null);
+      }
+
+      if (previousMarker) {
+        previousMarker.setMap(null);
+      }
+      clearRoute();
       return;
     }
-    const originResults = await getGeocode({
-      address: originRef.current.value,
-    });
+    // const originResults = await getGeocode({
+    //   address: origin,
+    // });
+
+    if (previousPolyline) {
+      previousPolyline.setMap(null);
+    }
+
+    if (previousMarker) {
+      previousMarker.setMap(null);
+    }
+
     const destinationResults = await getGeocode({
       address: destinationRef.current.value,
     });
 
-    const originLatLng = getLatLng(originResults[0]);
+    //  const originLatLng = getLatLng(originResults[0]);
+    const destinationLatLng = getLatLng(destinationResults[0]);
+    const airlineDistance =
+      google.maps.geometry.spherical.computeDistanceBetween(
+        origin,
+        destinationLatLng
+      );
+    const distance = (airlineDistance / 1000).toFixed(2);
+    setDistance(`${distance}KM`);
+    const kmPerHour = 860;
+    const airlineDuration = distance / kmPerHour;
+    // Extract hours and minutes
+    const hours = Math.floor(airlineDuration);
+    const minutes = Math.round((airlineDuration - hours) * 60);
+    setDuration(` ${hours}h${minutes}min`);
+    const flightPlanCoordinates = [origin, destinationLatLng];
+    const flightPath = new google.maps.Polyline({
+      path: flightPlanCoordinates,
+      geodesic: true,
+      strokeColor: "#2F396E",
+      strokeOpacity: 1.0,
+      strokeWeight: 2,
+    });
+    flightPath.setMap(map);
+    setPreviousPolyline(flightPath);
+    const newMarker = addMarker(destinationLatLng, des_location);
+    setPreviousMarker(newMarker);
 
-    const destinationLatLng = await getLatLng(destinationResults[0]);
+    // Assuming you have a map and a polyline objects
+    var bounds = new google.maps.LatLngBounds(); // Create an empty bounds object
+    flightPath.getPath().forEach(function (e) {
+      // Loop over the polyline coordinates
+      bounds.extend(e); // Extend the bounds to include each coordinate
+    });
+    map.fitBounds(bounds); // Fit the map to the bounds
 
     // POST request to server with destinationLatLng
     axios
       .post("/api/weather/coords", destinationLatLng)
       .catch((error) => console.error(`Error: ${error}`));
 
-    const directionsService = new google.maps.DirectionsService();
-    const results = await directionsService.route({
-      origin: originRef.current.value,
-      destination: destinationRef.current.value,
-      travelMode: google.maps.TravelMode.DRIVING,
-    });
-    setDirectionsResponse(results);
-    setDistance(results.routes[0].legs[0].distance.text);
-    setDuration(results.routes[0].legs[0].duration.text);
+    // const directionsService = new google.maps.DirectionsService();
+    // const results = await directionsService.route({
+    //   origin: originRef.current.value,
+    //   destination: destinationRef.current.value,
+    //   travelMode: google.maps.TravelMode.DRIVING,
+    // });
+    // setDirectionsResponse(results);
+    // setDistance(results.routes[0].legs[0].distance.text);
+    // setDuration(results.routes[0].legs[0].duration.text);
   }
 
   function clearRoute() {
     setDirectionsResponse(null);
     setDistance("");
     setDuration("");
-    originRef.current.value = "";
     destinationRef.current.value = "";
   }
 
@@ -78,7 +154,7 @@ const Map = ({ apiKey }) => {
         {/* Google Map Box */}
         <div className="w-full h-full">
           <GoogleMap
-            center={center}
+            center={origin}
             zoom={15}
             mapContainerStyle={{ width: "100%", height: "100%" }}
             options={{
@@ -89,25 +165,15 @@ const Map = ({ apiKey }) => {
             }}
             onLoad={(map) => setMap(map)}
           >
-            <Marker position={center} />
-            {directionsResponse && (
+            {/* <MarkerF position={origin} /> */}
+            {/* {directionsResponse && (
               <DirectionsRenderer directions={directionsResponse} />
-            )}
+            )} */}
           </GoogleMap>
         </div>
       </div>
       <div className="p-4 rounded-[8px] m-4 bg-white shadow-lg min-w-96 z-10">
         <div className="flex justify-between mb-2">
-          <div className="grow">
-            <Autocomplete>
-              <input
-                type="text"
-                placeholder="Origin"
-                ref={originRef}
-                className="w-full"
-              />
-            </Autocomplete>
-          </div>
           <div className="grow">
             <Autocomplete>
               <input
@@ -120,11 +186,11 @@ const Map = ({ apiKey }) => {
           </div>
           <div className="flex">
             <button
-              className="bg-blue-700 text-white p-4 mr-1"
+              className="bg-blue-700 text-white p-4 mr-1 rounded-xl"
               type="submit"
-              onClick={calculateRoute}
+              onClick={handleTravel}
             >
-              Calculate Route
+              Travel
             </button>
             <button
               className="bg-transparent border-none p-2"
@@ -140,8 +206,15 @@ const Map = ({ apiKey }) => {
           <button
             className="bg-transparent border-none p-2 rounded-lg"
             onClick={() => {
-              map.panTo(center);
+              map.panTo(origin);
               map.setZoom(15);
+              if (previousPolyline) {
+                previousPolyline.setMap(null);
+              }
+
+              if (previousMarker) {
+                previousMarker.setMap(null);
+              }
             }}
           >
             <FaLocationArrow />
