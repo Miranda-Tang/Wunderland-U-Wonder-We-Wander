@@ -1,7 +1,8 @@
+import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 import weatherRoutes from "./routes/weather.js";
+import spotifyRoutes from "./routes/spotify.js";
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
 
 app.use('/api/coords', weatherRoutes);
+app.use('/api/spotify', spotifyRoutes);
 
 app.get("/", (req, res) => {
     res.send("API is running...");
