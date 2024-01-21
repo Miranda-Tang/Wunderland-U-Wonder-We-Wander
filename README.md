@@ -26,7 +26,7 @@
       <a href="#inspiration">Inspiration</a>
     </li>
     <li>
-      <a href="#how-it-works">How it works</a>
+      <a href="functionality">Functionality</a>
     </li>
     <li><a href="#future-plans">What's next for Wunderland?</a></li>
     <li><a href="#credits">Credits</a></li>
@@ -39,7 +39,7 @@
 
 Ever wonder what it'll be like at a dream destination, ever let your mind wander? Discover your dream escape at Wunderland, just a click away – no passports, no tickets. We're revolutionizing travel for those confined to hospital rooms or facing travel challenges. Drawing from my experiences as a hospital volunteer, I've witnessed the yearning for exploration among individuals unable to venture beyond their immediate surroundings. Rooted in the health sector, our project seeks to provide an outlet for imagination and experience for those with physical and mental disabilities. Wunderland aspires to bring the world to everyone, championing the reduction of carbon emissions and fostering awareness about the environmental impact of digital activities. Join us in crafting a revolutionary travel experience that transcends barriers and is accessible to all. U Wonder We Wonder!
 
-## ⚙️How it Works⚙️
+## ⚙️Functionality⚙️
 
 Wunderland is a web platform seamlessly integrated with virtual reality. Users have the unique ability to input their dream vacation destination, and with a simple click, the platform generates a vivid virtual experience. This includes a lifelike representation of the chosen location, complete with current weather conditions incorporated with city views. To enhance the immersive experience, Wunderland goes a step further by curating a custom playlist that perfectly complements the atmosphere of the selected destination. In essence, Wunderland transports users to their dream location while having a full immersive experience of auditory and visual for an unparalleled virtual travel experience.
 
