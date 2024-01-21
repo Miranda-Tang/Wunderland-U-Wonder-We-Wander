@@ -15,10 +15,8 @@
     <br />
     <br />
 
-  <video width="400" height="300" controls>
-    <source src="your-video-file.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  ## Video Demo
+[![Click to watch the demo](wlogo.png)]([http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID](https://youtu.be/OiXpJNf433c))
   </p>
 </div>
 
