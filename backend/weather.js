@@ -1,5 +1,5 @@
-import express from 'express';
-import fetch from 'node-fetch';
+import express from "express";
+import fetch from "node-fetch";
 
 const router = express.Router();
 
@@ -17,6 +17,7 @@ router.post('/', async (req, res) => {
         }
 
         res.status(200).json(data);
+        console.log(data);
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({message: error.message || 'Error fetching weather data'});
