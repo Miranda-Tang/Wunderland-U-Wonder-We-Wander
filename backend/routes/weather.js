@@ -10,12 +10,16 @@ const weatherToMood = (weatherData) => {
   let mood = "neutral";
 
   if (
-    weatherCondition.includes("Clouds") ||
-    weatherCondition.includes("Rain") ||
-    weatherCondition.includes("Snow")
+      weatherCondition.includes("Clouds") ||
+      weatherCondition.includes("Rain") ||
+      weatherCondition.includes("Snow")
   ) {
     mood = "sad";
-  } else if (weatherCondition.includes("Clear") && temperature > 20) {
+  } else if (
+      weatherCondition.includes("Clear") ||
+      weatherCondition.includes("Sunny") ||
+      temperature > 10
+  ) {
     mood = "happy";
   }
 
