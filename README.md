@@ -24,9 +24,6 @@
   <ol>
     <li>
       <a href="#inspiration">Inspiration</a>
-      <ul>
-        <li><a href="#how-built">How We Built It</a></li>
-      </ul>
     </li>
     <li>
       <a href="#how-it-works">How it works</a>
