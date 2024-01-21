@@ -1,35 +1,15 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Map from "./components/Map";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Login from "./Login";
+import LoadMapApi from "./LoadMapApi";
+import Dashboard from "./Dashboard";
+
+const code = new URLSearchParams(window.location.search).get("code"); // get code from URL
 
 function App() {
-    const [apiKey, setApiKey] = useState("");
-
-    useEffect(() => {
-        const fetchApiKey = async () => {
-            try {
-                const response = await axios.get(
-                    "http://localhost:5010/api/google-maps-api-key"
-                );
-                console.log(response.data.apiKey);
-                setApiKey(response.data.apiKey);
-            } catch (error) {
-                console.error("Error fetching API key:", error);
-            }
-        };
-        fetchApiKey();
-    }, []);
-
-    if (apiKey) {
-        return <Map apiKey={apiKey}/>;
-    } else {
-        return (
-            <div>
-                {" "}
-                <h1 className="text-blue-800">Loading</h1>
-            </div>
-        );
-    }
+  return code ? <LoadMapApi code={code} /> : <Login />;
 }
 
 export default App;

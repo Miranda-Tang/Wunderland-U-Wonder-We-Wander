@@ -4,16 +4,14 @@ import { SkeletonText } from "@chakra-ui/react";
 import { FaLocationArrow, FaTimes } from "react-icons/fa";
 import {
   Autocomplete,
-  DirectionsRenderer,
   GoogleMap,
-  MarkerF,
   useJsApiLoader,
 } from "@react-google-maps/api";
 import { getGeocode, getLatLng } from "use-places-autocomplete";
 import des_location from "../images/des_location.png";
 import org_location from "../images/org_location.png";
 
-const Map = ({ apiKey }) => {
+const Map = ({ apiKey, code }) => {
   const [origin, setOrigin] = useState(null);
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -91,9 +89,9 @@ const Map = ({ apiKey }) => {
 
     //  const originLatLng = getLatLng(originResults[0]);
     const destinationLatLng = getLatLng(destinationResults[0]);
-    
-    window.location.href = `http://localhost:5010/api/coords?lat=${destinationLatLng.lat}&lng=${destinationLatLng.lng}`;   // redirect to the server endpoint
-    
+
+    window.location.href = `http://localhost:5010/api/coords?lat=${destinationLatLng.lat}&lng=${destinationLatLng.lng}`; // redirect to the server endpoint
+
     const airlineDistance =
       google.maps.geometry.spherical.computeDistanceBetween(
         origin,
@@ -176,20 +174,20 @@ const Map = ({ apiKey }) => {
         </div>
       </div>
       <div className="p-4 rounded-[8px] m-4 bg-white shadow-lg min-w-96 z-10">
-        <div className="flex justify-between mb-2">
+        <div className="flex justify-between mb-2 items-center gap-4">
           <div className="grow">
             <Autocomplete>
               <input
                 type="text"
                 placeholder="Destination"
                 ref={destinationRef}
-                className="w-full"
+                className="w-full h-10"
               />
             </Autocomplete>
           </div>
           <div className="flex">
             <button
-              className="bg-blue-700 text-white p-4 mr-1 rounded-xl"
+              className="bg-blue-700 text-white px-4 rounded-xl h-10 items-center"
               type="submit"
               onClick={handleTravel}
             >
@@ -207,7 +205,7 @@ const Map = ({ apiKey }) => {
           <div>Distance: {distance} </div>
           <div>Duration: {duration} </div>
           <button
-            className="bg-transparent border-none p-2 rounded-lg"
+            className="bg-red-500 border-none p-2 rounded-lg text-white"
             onClick={() => {
               map.panTo(origin);
               map.setZoom(15);
