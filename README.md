@@ -4,8 +4,8 @@
 <!-- LOGO -->
 <br />
 <div align="center">
-  <img src="wlogo.png" alt="Logo" width="350" height="350">
-    <img src="" alt="Logo" width="350" height="350">
+  <img src="wlogo.png" alt="Logo" width="250" height="250">
+    
   </a>
 
   <h3 align="center">Wunderland</h3>
