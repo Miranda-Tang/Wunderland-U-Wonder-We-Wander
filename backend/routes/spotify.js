@@ -38,7 +38,9 @@ router.get('/callback', async (req, res) => {
             },
         });
         const {access_token, refresh_token} = response.data;
-        res.json({access_token, refresh_token});
+        // redirect user to the frontend application with `access_token`
+        const FRONTEND_URI = 'http://localhost:3000'; // Update this with your frontend application's actual URI
+        res.redirect(`http://localhost:3000/Search?access_token=${access_token}`);
     } catch (error) {
         console.log(error);
         return res.send('Error occurred while logging in');
