@@ -26,7 +26,7 @@
       <a href="#inspiration">Inspiration</a>
     </li>
     <li>
-      <a href="functionality">Functionality</a>
+      <a href="#functionality">Functionality</a>
     </li>
     <li><a href="#future-plans">What's next for Wunderland?</a></li>
     <li><a href="#credits">Credits</a></li>
