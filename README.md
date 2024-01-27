@@ -7,10 +7,18 @@
 <h3 align="center">Wunderland</h3>
 
   <p align="center">
-    U Wonder We Wander
-    <br><br>
+    U Wonder We Wander <br>
+
+https://github.com/Miranda-Tang/Wunderland-U-Wonder-We-Wander/assets/81618041/2b37a84f-4641-431d-a2cc-c7c08f39efc4
+
+**Also take a look here:**
+
+[<img src="https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/002/725/468/datas/gallery.jpg" width="50%">](https://youtu.be/OiXpJNf433c)
+
   </p>
 </div>
+
+<br><br>
 
 <!-- TABLE OF CONTENTS -->
 <details>
