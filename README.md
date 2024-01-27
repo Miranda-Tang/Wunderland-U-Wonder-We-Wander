@@ -9,7 +9,7 @@
   <p align="center">
     U Wonder We Wander <br>
 
-https://github.com/Miranda-Tang/Wunderland-U-Wonder-We-Wander/assets/81618041/2b37a84f-4641-431d-a2cc-c7c08f39efc4
+https://github.com/Miranda-Tang/Wunderland-U-Wonder-We-Wander/assets/81618041/2eb6058b-6833-4ca5-b29f-375d8a73c61f
 
 **Also take a look here:**
 
