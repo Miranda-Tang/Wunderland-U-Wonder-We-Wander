@@ -11,7 +11,7 @@
     <br><br>
   </p>
 </div>
-<br>
+
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -26,6 +26,8 @@
     <li><a href="#credits">Credits</a></li>
   </ol>
 </details>
+
+<br>
 
 <h2 id="inspiration">💡 Inspiration 💡</h2>
 

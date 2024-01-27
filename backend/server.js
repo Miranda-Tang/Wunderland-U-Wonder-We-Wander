@@ -49,8 +49,7 @@ app.post("/login", (req, res) => {
         clientSecret: process.env.CLIENT_SECRET,
     });
 
-    spotifyApi
-        .authorizationCodeGrant(code)
+    spotifyApi.authorizationCodeGrant(code)
         .then((data) => {
             res.json({
                 accessToken: data.body.access_token,
@@ -58,7 +57,8 @@ app.post("/login", (req, res) => {
                 expiresIn: data.body.expires_in,
             });
         })
-        .catch(() => {
+        .catch((err) => {
+            console.error(err);
             res.sendStatus(400);
         });
 });
