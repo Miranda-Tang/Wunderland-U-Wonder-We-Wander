@@ -7,7 +7,9 @@
 <h3 align="center">Wunderland</h3>
 
   <p align="center">
-    U Wonder We Wander <br>
+    U Wonder We Wander
+
+<br><br>
 
 https://github.com/Miranda-Tang/Wunderland-U-Wonder-We-Wander/assets/81618041/2eb6058b-6833-4ca5-b29f-375d8a73c61f
 
